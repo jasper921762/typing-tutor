@@ -4,6 +4,7 @@
 const state = {
   wordList: [],
   currentIndex: 0,
+  wordStatus: [], // true = correct, false = wrong, for each completed word
   correctChars: 0,
   totalTyped: 0,
   errors: 0,
@@ -116,7 +117,7 @@ function renderWords() {
     const span = document.createElement('span');
     span.className = 'word';
     if (i < state.currentIndex) {
-      span.classList.add('correct');
+      span.classList.add(state.wordStatus[i] ? 'correct' : 'incorrect');
     } else if (i === state.currentIndex) {
       span.classList.add('active');
     }
@@ -220,6 +221,7 @@ function renderHistory() {
 function startRound() {
   state.wordList = generateWords();
   state.currentIndex = 0;
+  state.wordStatus = [];
   state.correctChars = 0;
   state.totalTyped = 0;
   state.errors = 0;
@@ -258,7 +260,9 @@ dom.typingInput.addEventListener('input', (e) => {
   // Detect space (word complete)
   if (raw.endsWith(' ')) {
     const typedWord = raw.slice(0, -1).trim();
-    if (typedWord === currentWord) {
+    const isCorrect = typedWord === currentWord;
+    state.wordStatus[state.currentIndex] = isCorrect;
+    if (isCorrect) {
       state.correctChars += currentWord.length;
     } else {
       state.errors++;
