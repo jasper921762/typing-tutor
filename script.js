@@ -273,23 +273,31 @@ dom.typingInput.addEventListener('input', (e) => {
     }
     renderWords();
     updateLiveStats();
+    return; // stop here — currentWord is stale, next event handles the new word
   }
 
   // Real-time character highlight
   const activeSpan = dom.wordDisplay.querySelector('.word.active');
-  if (activeSpan && currentWord) {
-    const typedWord = raw.replace(/\s/g, '');
-    const prefix = typedWord;
-    if (currentWord.startsWith(prefix)) {
-      activeSpan.style.color = '#111';
-    } else if (prefix.length > 0) {
-      activeSpan.style.color = 'var(--danger)';
-    } else {
-      activeSpan.style.color = '';
-    }
-    activeSpan.innerHTML =
-      `<span style="color:#888">${currentWord.slice(0, prefix.length)}</span>` +
-      currentWord.slice(prefix.length);
+  if (!activeSpan || !currentWord) return;
+
+  const typedWord = raw.trim();
+  if (typedWord.length === 0) {
+    // Reset display to plain word
+    activeSpan.textContent = currentWord;
+    activeSpan.style.color = '';
+    return;
+  }
+
+  if (currentWord.startsWith(typedWord)) {
+    activeSpan.style.color = '#111';
+    activeSpan.textContent = typedWord;
+    const remaining = document.createElement('span');
+    remaining.style.color = '#999';
+    remaining.textContent = currentWord.slice(typedWord.length);
+    activeSpan.appendChild(remaining);
+  } else {
+    activeSpan.style.color = 'var(--danger)';
+    activeSpan.textContent = typedWord;
   }
 });
 
