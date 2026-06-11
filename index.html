@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeFast — Typing Tutor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="logo">⌨ TypeFast</h1>
+      <p class="subtitle">Improve your typing speed with precision</p>
+    </header>
+
+    <!-- Settings -->
+    <section class="settings glass-card">
+      <div class="setting-group">
+        <label class="setting-label">Difficulty</label>
+        <div class="btn-group" id="difficultyGroup">
+          <button class="btn btn-option active" data-difficulty="easy">Easy</button>
+          <button class="btn btn-option" data-difficulty="medium">Medium</button>
+          <button class="btn btn-option" data-difficulty="hard">Hard</button>
+        </div>
+      </div>
+      <div class="setting-group">
+        <label class="setting-label">Duration</label>
+        <div class="btn-group" id="durationGroup">
+          <button class="btn btn-option" data-duration="30">30s</button>
+          <button class="btn btn-option active" data-duration="60">60s</button>
+          <button class="btn btn-option" data-duration="120">120s</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar glass-card">
+      <div class="stat">
+        <span class="stat-value" id="timer">60</span>
+        <span class="stat-label">Seconds</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="liveWpm">0</span>
+        <span class="stat-label">WPM</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="liveAccuracy">—</span>
+        <span class="stat-label">Accuracy</span>
+      </div>
+    </div>
+
+    <!-- Typing Area -->
+    <main class="typing-area">
+      <div class="word-display" id="wordDisplay">
+        <span class="placeholder">Press <kbd>Start</kbd> to begin typing...</span>
+      </div>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="typingInput"
+          class="typing-input"
+          disabled
+          placeholder="Type here..."
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        >
+      </div>
+      <button class="btn btn-start" id="startBtn">Start</button>
+    </main>
+
+    <!-- Results Overlay -->
+    <div class="overlay" id="resultsOverlay">
+      <div class="results-card">
+        <h2 class="results-title">🏆 Round Complete</h2>
+        <div class="results-grid">
+          <div class="result-item result-main">
+            <span class="result-number" id="resultWpm">0</span>
+            <span class="result-label">WPM</span>
+          </div>
+          <div class="result-item">
+            <span class="result-number" id="resultAccuracy">0%</span>
+            <span class="result-label">Accuracy</span>
+          </div>
+          <div class="result-item">
+            <span class="result-number" id="resultTime">0s</span>
+            <span class="result-label">Time</span>
+          </div>
+          <div class="result-item">
+            <span class="result-number" id="resultErrors">0</span>
+            <span class="result-label">Errors</span>
+          </div>
+        </div>
+        <div class="personal-best" id="personalBest"></div>
+        <div class="results-actions">
+          <button class="btn btn-primary" id="retryBtn">↻ Try Again</button>
+          <button class="btn btn-secondary" id="closeResultsBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <section class="history" id="historySection">
+      <h3 class="section-title">📊 Recent History</h3>
+      <div class="history-chart" id="historyChart">
+        <span class="no-data">Complete a round to see your history</span>
+      </div>
+      <div class="history-stats">
+        <span>Personal Best: <strong id="personalBestWpm">—</strong> WPM</span>
+        <span>Rounds: <strong id="totalRounds">0</strong></span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Keep your eyes on the words, not the keyboard. Practice daily.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
