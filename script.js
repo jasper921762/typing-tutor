@@ -251,13 +251,13 @@ function endRound() {
 dom.typingInput.addEventListener('input', (e) => {
   if (!state.isRunning) return;
 
-  const typed = e.target.value.trim();
+  const raw = e.target.value;
   const currentWord = state.wordList[state.currentIndex];
   if (!currentWord) return;
 
   // Detect space (word complete)
-  if (typed.endsWith(' ')) {
-    const typedWord = typed.slice(0, -1);
+  if (raw.endsWith(' ')) {
+    const typedWord = raw.slice(0, -1).trim();
     if (typedWord === currentWord) {
       state.correctChars += currentWord.length;
     } else {
@@ -278,7 +278,7 @@ dom.typingInput.addEventListener('input', (e) => {
   // Real-time character highlight
   const activeSpan = dom.wordDisplay.querySelector('.word.active');
   if (activeSpan && currentWord) {
-    const typedWord = typed.replace(/\s/g, '');
+    const typedWord = raw.replace(/\s/g, '');
     const prefix = typedWord;
     if (currentWord.startsWith(prefix)) {
       activeSpan.style.color = '#111';
